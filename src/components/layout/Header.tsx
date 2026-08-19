@@ -1,16 +1,22 @@
 import React from 'react';
-import { Search, WifiOff, Plus, ShieldCheck, Sparkles } from 'lucide-react';
+import { Search, Smartphone, Plus } from 'lucide-react';
 import { Parametres } from '../../types';
 
 interface HeaderProps {
   parametres: Parametres;
   onOpenSearch: () => void;
   onOpenNewSale: () => void;
+  onOpenInstallAndroid: () => void;
 }
 
-export function Header({ parametres, onOpenSearch, onOpenNewSale }: HeaderProps) {
+export function Header({
+  parametres,
+  onOpenSearch,
+  onOpenNewSale,
+  onOpenInstallAndroid,
+}: HeaderProps) {
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 px-4 py-2.5 flex items-center justify-between gap-2 shadow-2xs print:hidden">
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 px-3 sm:px-4 py-2.5 flex items-center justify-between gap-2 shadow-2xs print:hidden">
       {/* Brand logo / Title */}
       <div className="flex items-center gap-2.5 min-w-0">
         <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-700 via-blue-600 to-indigo-600 flex items-center justify-center text-white font-black text-base shadow-sm shrink-0">
@@ -31,6 +37,17 @@ export function Header({ parametres, onOpenSearch, onOpenNewSale }: HeaderProps)
 
       {/* Action Buttons */}
       <div className="flex items-center gap-1.5 shrink-0">
+        <button
+          type="button"
+          onClick={onOpenInstallAndroid}
+          className="flex items-center gap-1 px-2.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all cursor-pointer shadow-xs"
+          title="Installer sur Android / APK"
+        >
+          <Smartphone className="w-3.5 h-3.5 text-blue-400" />
+          <span className="hidden sm:inline">Installer APK</span>
+          <span className="sm:hidden">APK</span>
+        </button>
+
         <button
           type="button"
           onClick={onOpenSearch}

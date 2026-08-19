@@ -13,6 +13,8 @@ import {
   FileText,
   ShieldAlert,
   Sliders,
+  Smartphone,
+  Sparkles,
 } from 'lucide-react';
 import { Parametres } from '../../types';
 import {
@@ -25,9 +27,10 @@ import { ConfirmDialog } from '../common/ConfirmDialog';
 
 interface ParametresViewProps {
   parametres: Parametres;
+  onOpenInstallAndroid?: () => void;
 }
 
-export function ParametresView({ parametres }: ParametresViewProps) {
+export function ParametresView({ parametres, onOpenInstallAndroid }: ParametresViewProps) {
   const [formData, setFormData] = useState<Parametres>(parametres);
   const [savedSuccess, setSavedSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -146,6 +149,39 @@ export function ParametresView({ parametres }: ParametresViewProps) {
           <span>{errorMsg}</span>
         </div>
       )}
+
+      {/* 0. APPLICATION MOBILE ANDROID (APK / PWA) */}
+      <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-blue-950 text-white p-4 sm:p-5 rounded-2xl border border-blue-900 shadow-md space-y-3">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-blue-600 flex items-center justify-center text-white shadow-sm shrink-0">
+              <Smartphone className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h2 className="font-extrabold text-white text-sm sm:text-base">
+                  Application Android (APK & PWA)
+                </h2>
+                <span className="text-[10px] bg-emerald-500/20 text-emerald-300 font-bold px-2 py-0.5 rounded-full border border-emerald-500/30">
+                  Prêt
+                </span>
+              </div>
+              <p className="text-[11px] text-slate-300 mt-0.5">
+                Spécialement configuré avec Manifest, Service Worker et Capacitor pour Android.
+              </p>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={onOpenInstallAndroid}
+            className="w-full sm:w-auto py-2.5 px-4 bg-blue-500 hover:bg-blue-400 active:bg-blue-600 text-white rounded-xl text-xs font-extrabold shadow-sm transition-colors cursor-pointer flex items-center justify-center gap-2 shrink-0"
+          >
+            <Smartphone className="w-4 h-4" />
+            <span>Installer / Télécharger APK</span>
+          </button>
+        </div>
+      </div>
 
       {/* 1. SAUVEGARDE & RESTAURATION BOX */}
       <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-xs space-y-4">

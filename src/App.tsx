@@ -14,11 +14,13 @@ import { ParametresView } from './components/parametres/ParametresView';
 import { FactureA6Modal } from './components/factures/FactureA6Modal';
 import { FicheInterneModal } from './components/factures/FicheInterneModal';
 import { GlobalSearchModal } from './components/search/GlobalSearchModal';
+import { InstallAndroidModal } from './components/common/InstallAndroidModal';
 
 export default function App() {
   const [db, setDb] = useState<DatabaseSchema>(getDatabase);
   const [currentTab, setCurrentTab] = useState<NavTab>('accueil');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isInstallAndroidOpen, setIsInstallAndroidOpen] = useState(false);
   const [isNewSaleOpenTrigger, setIsNewSaleOpenTrigger] = useState(false);
 
   // Modals for invoices and sheets
@@ -52,12 +54,13 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-900 flex flex-col font-sans selection:bg-blue-500 selection:text-white">
+    <div className="min-h-screen bg-slate-100 text-slate-900 flex flex-col font-sans selection:bg-blue-500 selection:text-white pb-safe">
       {/* Top Header */}
       <Header
         parametres={db.parametres}
         onOpenSearch={() => setIsSearchOpen(true)}
         onOpenNewSale={handleOpenNewSale}
+        onOpenInstallAndroid={() => setIsInstallAndroidOpen(true)}
       />
 
       {/* Main Content Area */}
@@ -116,7 +119,10 @@ export default function App() {
         )}
 
         {currentTab === 'parametres' && (
-          <ParametresView parametres={db.parametres} />
+          <ParametresView
+            parametres={db.parametres}
+            onOpenInstallAndroid={() => setIsInstallAndroidOpen(true)}
+          />
         )}
       </main>
 
@@ -155,6 +161,12 @@ export default function App() {
         db={db}
         onSelectArticle={handleSelectArticleFromSearch}
         onSelectVente={handleSelectVenteFromSearch}
+      />
+
+      {/* ANDROID APK & INSTALL MODAL */}
+      <InstallAndroidModal
+        isOpen={isInstallAndroidOpen}
+        onClose={() => setIsInstallAndroidOpen(false)}
       />
     </div>
   );
